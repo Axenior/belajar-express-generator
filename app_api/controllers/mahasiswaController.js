@@ -17,11 +17,15 @@ exports.createMahasiswa = async (req, res) => {
     const prodi = await Prodi.findById(prodi_id); // Mencari Prodi berdasarkan ID
     if (!prodi) return res.status(404).json({ message: "Prodi not found" }); // Jika Prodi tidak ditemukan
     // console.log(path.join(__dirname));
-    const relativePath = path.relative(
-      path.join(__dirname, "../../public"),
-      req.file?.path
-    );
+    let relativePath;
+    if (req.file) {
+      relativePath = path.relative(
+        path.join(__dirname, "../../public"),
+        req.file?.path
+      );
+    }
     // console.log(relativePath);
+
     // Membuat instance Mahasiswa baru
     const mahasiswa = new Mahasiswa({
       npm,
@@ -79,7 +83,7 @@ exports.updateMahasiswa = async (req, res) => {
       // jika ada file foto baru
       if (mahasiswa.foto) {
         // Hapus foto lama jika ada
-        fs.unlinkSync(path.join(mahasiswa.foto));
+        fs.unlinkSync(path.join("public", mahasiswa.foto));
       }
       mahasiswa.foto = req.file.path; // Simpan path file baru
     }
