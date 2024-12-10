@@ -16,7 +16,12 @@ exports.createMahasiswa = async (req, res) => {
   try {
     const prodi = await Prodi.findById(prodi_id); // Mencari Prodi berdasarkan ID
     if (!prodi) return res.status(404).json({ message: "Prodi not found" }); // Jika Prodi tidak ditemukan
-
+    // console.log(path.join(__dirname));
+    const relativePath = path.relative(
+      path.join(__dirname, "../../public"),
+      req.file?.path
+    );
+    // console.log(relativePath);
     // Membuat instance Mahasiswa baru
     const mahasiswa = new Mahasiswa({
       npm,
@@ -24,7 +29,7 @@ exports.createMahasiswa = async (req, res) => {
       prodi_id,
       jenis_kelamin,
       asal_sekolah,
-      foto: req.file ? req.file.path : null, // Simpan path file jika ada
+      foto: req.file ? relativePath : null, // Simpan path file jika ada
     });
 
     await mahasiswa.save(); // Menyimpan data mahasiswa ke database
@@ -102,9 +107,10 @@ exports.deleteMahasiswa = async (req, res) => {
     }
     if (mahasiswa.foto) {
       console.log(mahasiswa.foto);
-      console.log(path.join(__dirname, "../"));
+      // console.log(path.join(__dirname, "../"));
       // Jika ada file foto, hapus file tersebut
-      fs.unlinkSync(path.join(mahasiswa.foto));
+      // console.log(path.join("public", mahasiswa.foto));
+      fs.unlinkSync(path.join("public", mahasiswa.foto));
     }
     res.json({ message: "Mahasiswa deleted successfully" }); // Mengembalikan respon sukses
   } catch (error) {

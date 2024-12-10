@@ -14,31 +14,30 @@ const storage = multer.diskStorage({
       null,
       file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname) // Membuat nama file baru dengan format [fieldname]-[uniqueSuffix].[ext]
     );
-  }
+  },
 });
 
 // Filter file untuk membatasi jenis file yang dapat diunggah
 const fileFilter = (req, file, cb) => {
-    const allowedTypes = /jpeg|jpg|png|gif/; // Hanya memperbolehkan tipe file gambar
-    const extname = allowedTypes.test(
-      path.extname(file.originalname).toLowerCase() // Mengecek ekstensi file
-    );
-    const mimetype = allowedTypes.test(file.mimetype); // Mengecek MIME type file
-  
-    if (extname && mimetype) {
-      cb(null, true); // Jika valid, lanjutkan proses upload
-    } else {
-      cb(new Error("Only images are allowed!"), false); // Jika tidak valid, kirimkan error
-    }
-  };
-  
-  // Konfigurasi multer
-  const upload = multer({
-    storage, // Menggunakan konfigurasi storage yang telah dibuat
-    limits: { fileSize: 2 * 1024 * 1024 }, // Membatasi ukuran file maksimum menjadi 2MB
-    fileFilter, // Menggunakan filter file yang telah dibuat
-  });
-  
-  // Mengekspor konfigurasi multer agar dapat digunakan di file lain
-  module.exports = upload;
-  
+  const allowedTypes = /jpeg|jpg|png|gif/; // Hanya memperbolehkan tipe file gambar
+  const extname = allowedTypes.test(
+    path.extname(file.originalname).toLowerCase() // Mengecek ekstensi file
+  );
+  const mimetype = allowedTypes.test(file.mimetype); // Mengecek MIME type file
+
+  if (extname && mimetype) {
+    cb(null, true); // Jika valid, lanjutkan proses upload
+  } else {
+    cb(new Error("Only images are allowed!"), false); // Jika tidak valid, kirimkan error
+  }
+};
+
+// Konfigurasi multer
+const upload = multer({
+  storage, // Menggunakan konfigurasi storage yang telah dibuat
+  limits: { fileSize: 2 * 1024 * 1024 }, // Membatasi ukuran file maksimum menjadi 2MB
+  fileFilter, // Menggunakan filter file yang telah dibuat
+});
+
+// Mengekspor konfigurasi multer agar dapat digunakan di file lain
+module.exports = upload;
