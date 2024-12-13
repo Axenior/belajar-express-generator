@@ -10,7 +10,11 @@ const authMiddleware = require("../middleware/authMiddleware");
 const roleMiddleware = require("../middleware/roleMiddleware");
 // Definisi rute untuk fakultas
 // Mengatur rute GET untuk mendapatkan semua data fakultas
-router.get("/", authMiddleware, fakultasController.getAllFakultas);
+router.get(
+  "/",
+  // authMiddleware,
+  fakultasController.getAllFakultas
+);
 // Mengatur rute POST untuk membuat data fakultas baru
 router.post(
   "/",
@@ -19,7 +23,11 @@ router.post(
   fakultasController.createFakultas
 );
 // Mengatur rute GET untuk mendapatkan data fakultas berdasarkan ID
-router.get("/:id", authMiddleware, fakultasController.getFakultasById);
+router.get(
+  "/:id",
+  // authMiddleware,
+  fakultasController.getFakultasById
+);
 // Mengatur rute PUT untuk memperbarui data fakultas berdasarkan ID
 router.put(
   "/:id",
