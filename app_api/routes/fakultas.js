@@ -14,7 +14,7 @@ router.get("/", authMiddleware, fakultasController.getAllFakultas);
 // Mengatur rute POST untuk membuat data fakultas baru
 router.post(
   "/",
-  authMiddleware,
+  // authMiddleware,
   // roleMiddleware("admin"),
   fakultasController.createFakultas
 );
@@ -23,14 +23,14 @@ router.get("/:id", authMiddleware, fakultasController.getFakultasById);
 // Mengatur rute PUT untuk memperbarui data fakultas berdasarkan ID
 router.put(
   "/:id",
-  authMiddleware,
+  // authMiddleware,
   // roleMiddleware("admin"),
   fakultasController.updateFakultas
 );
 // Mengatur rute DELETE untuk menghapus data fakultas berdasarkan ID
 router.delete(
   "/:id",
-  authMiddleware,
+  // authMiddleware,
   // roleMiddleware("admin"),
   fakultasController.deleteFakultas
 );
