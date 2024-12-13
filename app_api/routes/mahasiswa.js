@@ -15,7 +15,7 @@ router.get("/:id", authMiddleware, mahasiswaController.getMahasiswaById);
 router.post(
   "/",
   authMiddleware,
-  roleMiddleware("admin"),
+  // roleMiddleware("admin"),
   upload.single("foto"),
   mahasiswaController.createMahasiswa
 );
@@ -24,7 +24,7 @@ router.post(
 router.put(
   "/:id",
   authMiddleware,
-  roleMiddleware("admin"),
+  // roleMiddleware("admin"),
   upload.single("foto"),
   mahasiswaController.updateMahasiswa
 );
@@ -33,7 +33,7 @@ router.put(
 router.delete(
   "/:id",
   authMiddleware,
-  roleMiddleware("admin"),
+  // roleMiddleware("admin"),
   mahasiswaController.deleteMahasiswa
 );
 

@@ -15,7 +15,7 @@ router.get("/", authMiddleware, prodiController.getAllProdi);
 router.post(
   "/",
   authMiddleware,
-  roleMiddleware("admin"),
+  // roleMiddleware("admin"),
   prodiController.createProdi
 );
 // Mengatur rute GET untuk mendapatkan data fakultas berdasarkan ID
@@ -24,14 +24,14 @@ router.get("/:id", prodiController.getProdiById);
 router.put(
   "/:id",
   authMiddleware,
-  roleMiddleware("admin"),
+  // roleMiddleware("admin"),
   prodiController.updateProdi
 );
 // Mengatur rute DELETE untuk menghapus data fakultas berdasarkan ID
 router.delete(
   "/:id",
   authMiddleware,
-  roleMiddleware("admin"),
+  // roleMiddleware("admin"),
   prodiController.deleteProdi
 );
 
